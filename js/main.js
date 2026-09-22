@@ -95,18 +95,27 @@
   });
 
   safe(function () {
-    var faqItems = document.querySelectorAll(".faq-item");
-    faqItems.forEach(function (item) {
-      var btn = item.querySelector(".faq-q");
-      if (!btn) return;
-      btn.addEventListener("click", function () {
-        var isOpen = item.classList.contains("is-open");
-        faqItems.forEach(function (i) {
-          i.classList.remove("is-open");
-        });
-        if (!isOpen) item.classList.add("is-open");
+    var reduceMotion = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    var layers = document.querySelectorAll("[data-parallax]");
+    if (reduceMotion || !layers.length) return;
+    var ticking = false;
+    function update() {
+      layers.forEach(function (el) {
+        var speed = parseFloat(el.getAttribute("data-parallax")) || 0.15;
+        var rect = el.getBoundingClientRect();
+        var offset = (rect.top - window.innerHeight / 2) * speed;
+        el.style.transform = "translate3d(0," + offset.toFixed(1) + "px,0)";
       });
-    });
+      ticking = false;
+    }
+    function onScroll() {
+      if (!ticking) {
+        window.requestAnimationFrame(update);
+        ticking = true;
+      }
+    }
+    document.addEventListener("scroll", onScroll, { passive: true });
+    update();
   });
 
   safe(function () {
