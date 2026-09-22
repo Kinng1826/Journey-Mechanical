@@ -29,9 +29,28 @@ then open `http://localhost:8080/`.
 
 ## Deploying
 
-Drag-and-drop or connect this folder to any static host — Netlify, Vercel,
-Cloudflare Pages, or GitHub Pages all work with zero configuration since
-there's no build step.
+Every internal link, stylesheet, script, and image reference in this site
+uses a **relative path** (no leading `/`) — so it works correctly whether
+it's uploaded to a domain's root folder or into a subfolder. No server
+configuration, `.htaccess`, or build step needed.
+
+### Deploying to GoDaddy
+
+1. In GoDaddy's hosting control panel (cPanel or the GoDaddy Website &
+   Hosting file manager), open **File Manager** and navigate to
+   `public_html` (this is your domain's web root).
+2. Upload the contents of this folder — `index.html`, `services.html`,
+   `about.html`, `contact.html`, `robots.txt`, `sitemap.xml`, and the
+   `css/`, `js/`, and `assets/` folders — directly **into** `public_html`
+   (not into a subfolder inside it, unless you want the site at
+   `yourdomain.com/subfolder/`, which also works).
+3. If you're uploading a `.zip`, use File Manager's built-in "Extract"
+   after upload rather than uploading files one by one.
+4. Visit your domain — `index.html` is the homepage and loads
+   automatically at `/`.
+
+This also works unchanged on Netlify, Vercel, Cloudflare Pages, or GitHub
+Pages if you'd rather use one of those instead.
 
 ## Contact form
 
@@ -49,9 +68,10 @@ honeypot field (`_honey`) provides basic spam protection.
   `BC Gas Fitter`).
 - **Social links** — Facebook/Instagram icons in the footer currently link
   to `#`. Add real profile URLs once they exist.
-- **Domain** — `sitemap.xml` and the `<link rel="canonical">` tags use a
-  placeholder `journeymechanical.ca`. Update both once the real domain is
-  set.
+- **Domain** — `sitemap.xml` and `robots.txt` reference a placeholder
+  `journeymechanical.ca` domain (for search engines only — this doesn't
+  affect the site itself). Update the URLs in both files once your real
+  domain is live.
 - **Logo / photos** — `assets/logo.png` is your submitted logo with the
   background removed. If you get real project photos later, they can slot
   into the service pages (currently icon-based, no stock photos used).
